@@ -372,7 +372,7 @@
 (defun rspec-runner ()
   "Returns command line to run rspec"
   (let ((bundle-command (if (rspec-bundle-p) "bundle exec " ""))
-        (zeus-command (if (rspec-zeus-p) "zeus " "")))
+        (zeus-command (if (rspec-zeus-p) "./bin/zeus " "")))
     (concat bundle-command zeus-command (if rspec-use-rake-flag
                                             (concat rspec-rake-command " spec")
                                           rspec-spec-command))))
