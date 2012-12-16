@@ -341,6 +341,7 @@
 (defun rspec-core-options (&optional default-options)
   "Returns string of options that instructs spec to use options file if it exists, or sensible defaults otherwise"
   (cond ((and rspec-use-opts-file-when-available
+              (rspec-zeus-p)
               (file-readable-p (rspec-spec-opts-file)))
          (concat "--options " (rspec-spec-opts-file)))
         (t (or default-options
@@ -359,9 +360,10 @@
       (file-readable-p (concat (rspec-project-root) ".rspec"))))
 
 (defun rspec-default-options ()
-  (if (rspec2-p)
-      "--format documentation"
-    (concat "--format specdoc " "--reverse")))
+  (if (not (rspec-zeus-p))      
+      (if (rspec2-p)
+          "--format documentation"
+        (concat "--format specdoc " "--reverse"))))
 
 (defun rspec-spec-opts-file ()
   "Returns filename of spec opts file"
